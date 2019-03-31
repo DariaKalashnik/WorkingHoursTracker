@@ -1,60 +1,52 @@
 package com.itgirl.project.worktracker.services;
 
 import com.itgirl.project.worktracker.models.Task;
+import com.itgirl.project.worktracker.repos.TaskRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class TaskService {
 
-    // Temporary array for testing
-    public List<Task> tasks = new ArrayList<>();
+    @Autowired
+    TaskRepo taskRepo;
 
-    // will run after constructor
+    // Dummy data
     @PostConstruct
-    private void generateTasks(){
-        for (int i = 0; i < 100; i++){
-            tasks.add(new Task(i, "Task " + i));
+    private void generateTasks() {
+        for (int i = 0; i < 100; i++) {
+            taskRepo.save(new Task(i, "Task " + i));
         }
     }
 
     public List<Task> getTasks() {
-        return tasks;
+        return this.taskRepo.findAll();
     }
 
-    public Task getTask(int index){
-        Task searchedTask = tasks.get(index);
-        return searchedTask;
+    public Task getTask(Long id) {
+        return this.taskRepo.getOne(id);
     }
 
-    public boolean addTask(Task task){
-        if (tasks.contains(task)){
-            System.out.println("409 Conflict!");
-            return false;
-        }
-
-        tasks.add(task);
+    /**
+     * Method for adding new task and updating the existing one
+     *
+     * @param task required parameter (new or updated task)
+     * @return true if save was successful
+     */
+    public boolean saveTask(Task task) {
+        // We don't check the id as explained here -> https://www.baeldung.com/spring-data-crud-repository-save
+        this.taskRepo.save(task);
         return true;
     }
 
-    public void removeTask(Task task){
-        tasks.remove(task);
+    public void removeTask(Task task) {
+        this.taskRepo.delete(task);
     }
 
-    public void updateTask(Task updatedTask){
-        int i = tasks.indexOf(updatedTask);
-        Task oldTask = tasks.get(i);
-
-        tasks.remove(oldTask);
-        tasks.add(updatedTask);
-
-        System.out.println(oldTask);
-        System.out.println(updatedTask);
-
+    public void removeById(Long id) {
+        this.taskRepo.deleteById(id);
     }
 }
