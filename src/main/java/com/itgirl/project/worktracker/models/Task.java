@@ -22,13 +22,16 @@ public class Task {
     // Temporary field for testing purposes
     private String name;
 
+    @ManyToOne
     private Project project;
+
     private String description;
 
     //TODO: main timer (timer will go on like a clock)
-    private Time currentTime;
+    private Time currenttime;
 
-    private Time totalTime;
+    private Time totaltime;
+
     private Date date;
 
     public Task() {
