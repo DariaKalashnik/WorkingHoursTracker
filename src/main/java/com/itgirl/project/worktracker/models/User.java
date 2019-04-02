@@ -1,6 +1,8 @@
 package com.itgirl.project.worktracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.itgirl.project.worktracker.models.enums.UserRole;
+import com.itgirl.project.worktracker.models.enums.WorkerType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -14,16 +16,15 @@ import java.util.List;
  Class that stores login credentials (email and password).
  User won't have a registration page, each worker can be register only on admin level
  and here they will only login.
- */
+*/
 
+// TODO 1: modify length and nullability later if needed
 @Entity
 @Table(name = "t_user")
 @Data
 @ToString(exclude = {"password", "projects"})
 @EqualsAndHashCode(of = "id")
 public class User {
-
-    // TODO setting the relationships
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,6 +38,16 @@ public class User {
     @Column(name = "password", length = 100, nullable = false)
     @Size(min = 8, max = 30)
     private String password;
+
+    // TODO 2: Type can be changed later
+    @Enumerated(EnumType.STRING)
+    @Column(name = "worker_type")
+    private WorkerType workerType;
+
+    // TODO 3: Type can be changed later
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_role")
+    private UserRole userRole;
 
     @Column(name = "non_expired", nullable = false)
     private boolean accountNonExpired = true;
@@ -62,16 +73,15 @@ public class User {
     @Column(name = "city", length = 100, nullable = false)
     private String city;
 
-    @Column(name = "address", length = 100, nullable = false)
+    @Column(name = "address", length = 100)
     private String address;
 
-    @Column(name = "phone", length = 100, nullable = false)
+    @Column(name = "phone", length = 100)
     private String phone;
 
-    @Column(name = "zip", length = 100, nullable = false)
+    @Column(name = "zip", length = 100)
     private String zip;
 
-    @OneToMany
+    @ManyToMany
     private List<Project> projects;
-
 }

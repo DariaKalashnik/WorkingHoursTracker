@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// TODO 1: modify later when frontend part is done
 @RestController
 public class TaskController {
 

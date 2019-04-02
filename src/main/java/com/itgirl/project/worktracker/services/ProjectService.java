@@ -19,8 +19,7 @@ public class ProjectService {
         return this.projectRepo.getOne(id);
     }
 
-
-    public boolean saveTask(Project project) {
+    public boolean saveProject(Project project) {
         projectRepo.save(project);
         return true;
     }
