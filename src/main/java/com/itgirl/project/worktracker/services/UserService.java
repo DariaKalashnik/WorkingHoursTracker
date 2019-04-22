@@ -4,12 +4,23 @@ import com.itgirl.project.worktracker.models.User;
 import com.itgirl.project.worktracker.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 public class UserService {
 
     @Autowired
     UserRepo userRepo;
+
+    // Dummy data
+    @PostConstruct
+    private void generateProjects() {
+        for (int i = 0; i < 100; i++) {
+            User user = new User();
+            user.setFirstName("Dasha" + i);
+            userRepo.save(user);
+        }
+    }
 
     public List<User> getUsers() {
         return this.userRepo.findAll();

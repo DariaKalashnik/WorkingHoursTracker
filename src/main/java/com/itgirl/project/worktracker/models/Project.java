@@ -1,5 +1,6 @@
 package com.itgirl.project.worktracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -8,9 +9,10 @@ import java.util.Date;
 
 // TODO 1: modify length and nullability later if needed
 @Entity
-@Table(name = "t_project")
 @Data
 @EqualsAndHashCode(of = "id")
+@Table(name = "t_project")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Project {
 
     @Id

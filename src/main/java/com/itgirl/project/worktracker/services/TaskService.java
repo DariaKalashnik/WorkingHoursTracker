@@ -25,11 +25,11 @@ public class TaskService {
     }
 
     public List<Task> getTasks() {
-        return this.taskRepo.findAll();
+        return taskRepo.findAll();
     }
 
     public Task getTask(Long id) {
-        return this.taskRepo.getOne(id);
+        return taskRepo.getOne(id);
     }
 
     /**
@@ -40,15 +40,15 @@ public class TaskService {
      */
     public boolean saveTask(Task task) {
         // We don't check the id as explained here -> https://www.baeldung.com/spring-data-crud-repository-save
-        this.taskRepo.save(task);
+        taskRepo.save(task);
         return true;
     }
 
     public void removeTask(Task task) {
-        this.taskRepo.delete(task);
+        taskRepo.delete(task);
     }
 
     public void removeById(Long id) {
-        this.taskRepo.deleteById(id);
+       taskRepo.deleteById(id);
     }
 }
