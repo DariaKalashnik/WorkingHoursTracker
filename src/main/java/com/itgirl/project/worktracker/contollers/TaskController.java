@@ -24,11 +24,8 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/{id}")
-    public ResponseEntity<Task> getTask(@PathVariable long id) {
+    public ResponseEntity<Task> getTask(@PathVariable Long id) {
         Task task = taskService.getTask(id);
-
-        if (task == null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         return new ResponseEntity<>(task, HttpStatus.OK);
     }
@@ -43,7 +40,7 @@ public class TaskController {
     }
 
     @PutMapping("/tasks/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable long id, @RequestBody Task task) {
+    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
 
         Task isExists = taskService.getTask(id);
         if (isExists == null)
@@ -57,11 +54,8 @@ public class TaskController {
     }
 
     @DeleteMapping("/tasks/{id}")
-    public ResponseEntity<Task> removeTask(@PathVariable long id) {
+    public ResponseEntity<Task> removeTask(@PathVariable Long id) {
         Task task = taskService.getTask(id);
-
-        if (task == null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         taskService.removeTask(task);
 

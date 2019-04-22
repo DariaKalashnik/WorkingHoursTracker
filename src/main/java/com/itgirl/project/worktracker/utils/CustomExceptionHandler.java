@@ -15,13 +15,19 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ApiError> handleAllExceptions(Exception exception, WebRequest request) {
 
+        return buildErrorMessage(exception, HttpStatus.NOT_FOUND);
+    }
+
+
+    private ResponseEntity<ApiError> buildErrorMessage(Exception exception, HttpStatus status){
         String errorMessageDescription = exception.getLocalizedMessage();
 
         if (errorMessageDescription == null)
             errorMessageDescription = exception.toString();
 
-        ApiError errorDetails = new ApiError(HttpStatus.NOT_FOUND, new Date(), errorMessageDescription);
+        ApiError apiError = new ApiError(status, new Date(), errorMessageDescription);
 
-        return new ResponseEntity<>(errorDetails, errorDetails.getStatus());
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+
     }
 }
