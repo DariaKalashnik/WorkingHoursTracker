@@ -18,13 +18,13 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    // Temporary field for testing purposes
+    @Column(name = "name", length = 200)
     private String name;
 
     @ManyToOne
     private Project project;
 
-    @Column(name = "description", length = 200, nullable = false)
+    @Column(name = "description", length = 200)
     private String description;
 
     // TODO 2: automatically stop at 10pm if user forgets
@@ -42,15 +42,4 @@ public class Task {
 
     @Column(name = "date")
     private Date date;
-
-    // Temporary constructor for testing
-    public Task() {
-    }
-
-    // Temporary constructor for testing
-    public Task(long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
 }

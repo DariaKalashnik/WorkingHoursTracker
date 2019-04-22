@@ -1,4 +1,4 @@
-package com.itgirl.project.worktracker.services;
+package com.itgirl.project.worktracker.services.dummy;
 
 import com.itgirl.project.worktracker.models.Task;
 import org.springframework.stereotype.Service;
@@ -10,14 +10,14 @@ import java.util.List;
 @Service
 public class DummyTaskService {
 
-    // Temporary array for testing
+  /*  // Temporary array for testing
     public List<Task> tasks = new ArrayList<>();
 
     // will run after constructor
     @PostConstruct
     private void generateTasks(){
         for (int i = 0; i < 100; i++){
-            tasks.add(new Task(i, "Task " + i));
+            tasks.add(new Task("Task " + i));
         }
     }
 
@@ -54,5 +54,5 @@ public class DummyTaskService {
         System.out.println(oldTask);
         System.out.println(updatedTask);
 
-    }
+    }*/
 }

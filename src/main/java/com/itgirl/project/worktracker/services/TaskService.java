@@ -18,7 +18,9 @@ public class TaskService {
     @PostConstruct
     private void generateTasks() {
         for (int i = 0; i < 100; i++) {
-            taskRepo.save(new Task(i, "Task " + i));
+            Task task = new Task();
+            task.setName("Name" + i);
+            taskRepo.save(task);
         }
     }
 
