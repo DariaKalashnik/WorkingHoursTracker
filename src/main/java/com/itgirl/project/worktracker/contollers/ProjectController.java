@@ -18,6 +18,7 @@ public class ProjectController {
 
     @GetMapping("/projects")
     public ResponseEntity<List<Project>> getProjects() {
+
         List<Project> projects = projectService.getProjects();
 
         return new ResponseEntity<>(projects, HttpStatus.OK);
@@ -25,16 +26,15 @@ public class ProjectController {
 
     @GetMapping("/projects/{id}")
     public ResponseEntity<Project> getProject(@PathVariable long id) {
-        Project project = projectService.getProject(id);
 
-        if (project == null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Project project = projectService.getProject(id);
 
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
     @PostMapping("/projects")
     public ResponseEntity<Project> addProject(@RequestBody Project project) {
+
         projectService.saveProject(project);
 
         return new ResponseEntity<>(project, HttpStatus.CREATED);
@@ -42,6 +42,7 @@ public class ProjectController {
 
     @PutMapping("/projects/{id}")
     public ResponseEntity<Project> updateTask(@PathVariable long id, @RequestBody Project project) {
+
         Project isExists = projectService.getProject(id);
 
         if (isExists == null)
@@ -57,6 +58,7 @@ public class ProjectController {
 
     @DeleteMapping("/projects")
     public ResponseEntity<Project> removeProject(@RequestBody Project project) {
+
         projectService.removeProject(project);
 
         return new ResponseEntity<>(project, HttpStatus.OK);
@@ -64,13 +66,9 @@ public class ProjectController {
 
     @DeleteMapping("/projects/{id}")
     public ResponseEntity<Project> removeProjectById(@RequestBody long id) {
-        Project project = projectService.getProject(id);
 
-        if (project == null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        projectService.removeProjectById(id);
 
-        projectService.removeProject(project);
-
-        return new ResponseEntity<>(project, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

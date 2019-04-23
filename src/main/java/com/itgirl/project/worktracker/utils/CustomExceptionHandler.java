@@ -18,8 +18,13 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return buildErrorMessage(exception, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ItemAlreadyExistsException.class)
+    public final ResponseEntity<ApiError> handleConflictException(Exception exception, WebRequest request) {
 
-    private ResponseEntity<ApiError> buildErrorMessage(Exception exception, HttpStatus status){
+        return buildErrorMessage(exception, HttpStatus.CONFLICT);
+    }
+
+    private ResponseEntity<ApiError> buildErrorMessage(Exception exception, HttpStatus status) {
         String errorMessageDescription = exception.getLocalizedMessage();
 
         if (errorMessageDescription == null)

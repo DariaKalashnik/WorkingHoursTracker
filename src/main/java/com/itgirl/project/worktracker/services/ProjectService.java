@@ -41,7 +41,7 @@ public class ProjectService {
         this.projectRepo.delete(project);
     }
 
-    public void removeById(Long id) {
+    public void removeProjectById(Long id) {
         this.projectRepo.deleteById(id);
     }
 }

@@ -18,13 +18,15 @@ public class TaskController {
 
     @GetMapping("/tasks")
     public ResponseEntity<List<Task>> getTasks() {
+
         List<Task> tasks = taskService.getTasks();
 
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
     @GetMapping("/tasks/{id}")
-    public ResponseEntity<Task> getTask(@PathVariable Long id) {
+    public ResponseEntity<Task> getTask(@PathVariable long id) {
+
         Task task = taskService.getTask(id);
 
         return new ResponseEntity<>(task, HttpStatus.OK);
@@ -32,17 +34,17 @@ public class TaskController {
 
     @PostMapping("/tasks")
     public ResponseEntity<Task> addTask(@RequestBody Task task) {
-        if (!taskService.saveTask(task)) {
-            throw new ConflictException();
-        }
+
+        taskService.saveTask(task);
 
         return new ResponseEntity<>(task, HttpStatus.CREATED);
     }
 
     @PutMapping("/tasks/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
+    public ResponseEntity<Task> updateTask(@PathVariable long id, @RequestBody Task task) {
 
         Task isExists = taskService.getTask(id);
+
         if (isExists == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else if (task == null)
@@ -54,16 +56,10 @@ public class TaskController {
     }
 
     @DeleteMapping("/tasks/{id}")
-    public ResponseEntity<Task> removeTask(@PathVariable Long id) {
-        Task task = taskService.getTask(id);
+    public ResponseEntity<Task> removeTask(@PathVariable long id) {
 
-        taskService.removeTask(task);
+        taskService.removeTaskById(id);
 
-        return new ResponseEntity<>(task, HttpStatus.OK);
-    }
-
-    @ResponseStatus(value = HttpStatus.CONFLICT, reason = "The task with the same id already exists")
-    public class ConflictException extends RuntimeException {
-
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

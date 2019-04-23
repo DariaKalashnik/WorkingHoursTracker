@@ -25,12 +25,12 @@ public class DummyTaskService {
         return tasks;
     }
 
-    public Task getTask(int index){
+    public Task getUser(int index){
         Task searchedTask = tasks.get(index);
         return searchedTask;
     }
 
-    public boolean addTask(Task task){
+    public boolean addUser(Task task){
         if (tasks.contains(task)){
             System.out.println("409 Conflict!");
             return false;
@@ -44,7 +44,7 @@ public class DummyTaskService {
         tasks.remove(task);
     }
 
-    public void updateTask(Task updatedTask){
+    public void updateUser(Task updatedTask){
         int i = tasks.indexOf(updatedTask);
         Task oldTask = tasks.get(i);
 

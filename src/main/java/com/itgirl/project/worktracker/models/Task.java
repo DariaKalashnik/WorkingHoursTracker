@@ -20,7 +20,7 @@ import java.util.Date;
 @EqualsAndHashCode(of = "id")
 @Table(name = "t_task")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//@ToString(exclude = {"project"})
+@ToString(exclude = {"project"})
 public class Task {
 
     @Id
@@ -30,10 +30,10 @@ public class Task {
     @Column(name = "name", length = 200)
     private String name;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JsonIgnore
-//    @NotFound(action = NotFoundAction.IGNORE)
-//    private Project project;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Project project;
 
     @Column(name = "description", length = 200)
     private String description;

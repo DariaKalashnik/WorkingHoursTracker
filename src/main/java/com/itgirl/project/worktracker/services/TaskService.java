@@ -48,7 +48,7 @@ public class TaskService {
         taskRepo.delete(task);
     }
 
-    public void removeById(Long id) {
+    public void removeTaskById(Long id) {
        taskRepo.deleteById(id);
     }
 }
