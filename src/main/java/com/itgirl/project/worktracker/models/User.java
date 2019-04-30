@@ -10,8 +10,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /*
  Class that stores login credentials (email and password).
@@ -84,7 +83,23 @@ public class User {
     @Column(name = "zip", length = 100)
     private String zip;
 
+
+
+    // https://www.baeldung.com/hibernate-many-to-many
+
     @JsonIgnore
-    @ManyToMany
-    private List<Project> projects;
+    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "User_Project",
+            joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "project_id", referencedColumnName = "id") }
+    )
+    Set<Project> projects = new HashSet<>();
+
+    public void addProject(Project project){
+        if (!projects.contains(project)){
+            projects.add(project);
+
+        }
+    }
 }

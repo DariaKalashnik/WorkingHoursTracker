@@ -1,11 +1,14 @@
 package com.itgirl.project.worktracker.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 // TODO 1: modify length and nullability later if needed
 @Entity
@@ -24,4 +27,12 @@ public class Project {
 
     @Column(name = "deadline")
     private Date deadline;
+
+    @ManyToMany(mappedBy = "projects", fetch = FetchType.EAGER)
+//    @JsonIgnore
+    private Set<User> users = new HashSet<>();
+
+    public void addUser(User user) {
+        users.add(user);
+    }
 }

@@ -17,10 +17,12 @@ public class TaskService {
     // Dummy data
     @PostConstruct
     private void generateTasks() {
-        for (int i = 0; i < 100; i++) {
-            Task task = new Task();
-            task.setName("Name" + i);
-            taskRepo.save(task);
+        if (taskRepo.count() < 1) {
+            for (int i = 0; i < 100; i++) {
+                Task task = new Task();
+                task.setName("Name" + i);
+                taskRepo.save(task);
+            }
         }
     }
 

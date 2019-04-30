@@ -17,10 +17,12 @@ public class ProjectService {
     // Dummy data
     @PostConstruct
     private void generateProjects() {
-        for (int i = 0; i < 100; i++) {
-            Project project = new Project();
-            project.setName("Name" + i);
-            projectRepo.save(project);
+        if (projectRepo.count() < 1) {
+            for (int i = 0; i < 100; i++) {
+                Project project = new Project();
+                project.setName("Name" + i);
+                projectRepo.save(project);
+            }
         }
     }
 
