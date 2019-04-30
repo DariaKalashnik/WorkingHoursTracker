@@ -18,16 +18,18 @@ public class TaskService {
     @PostConstruct
     private void generateTasks() {
         for (int i = 0; i < 100; i++) {
-            taskRepo.save(new Task(i, "Task " + i));
+            Task task = new Task();
+            task.setName("Name" + i);
+            taskRepo.save(task);
         }
     }
 
     public List<Task> getTasks() {
-        return this.taskRepo.findAll();
+        return taskRepo.findAll();
     }
 
     public Task getTask(Long id) {
-        return this.taskRepo.getOne(id);
+        return taskRepo.getOne(id);
     }
 
     /**
@@ -38,15 +40,15 @@ public class TaskService {
      */
     public boolean saveTask(Task task) {
         // We don't check the id as explained here -> https://www.baeldung.com/spring-data-crud-repository-save
-        this.taskRepo.save(task);
+        taskRepo.save(task);
         return true;
     }
 
     public void removeTask(Task task) {
-        this.taskRepo.delete(task);
+        taskRepo.delete(task);
     }
 
-    public void removeById(Long id) {
-        this.taskRepo.deleteById(id);
+    public void removeTaskById(Long id) {
+       taskRepo.deleteById(id);
     }
 }

@@ -1,6 +1,7 @@
 package com.itgirl.project.worktracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.itgirl.project.worktracker.models.enums.UserRole;
 import com.itgirl.project.worktracker.models.enums.WorkerType;
 import lombok.Data;
@@ -20,10 +21,11 @@ import java.util.List;
 
 // TODO 1: modify length and nullability later if needed
 @Entity
-@Table(name = "t_user")
 @Data
-@ToString(exclude = {"password", "projects"})
 @EqualsAndHashCode(of = "id")
+@Table(name = "t_user")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@ToString(exclude = {"password", "projects"})
 public class User {
 
     @Id
@@ -31,15 +33,15 @@ public class User {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "username", length = 100, nullable = false, unique = true)
+    @Column(name = "username", length = 100, unique = true)
     private String email;
 
     @JsonIgnore
-    @Column(name = "password", length = 100, nullable = false)
+    @Column(name = "password", length = 100)
     @Size(min = 8, max = 30)
     private String password;
 
-    // TODO 2: Type can be changed later
+  /*  // TODO 2: Type can be changed later
     @Enumerated(EnumType.STRING)
     @Column(name = "worker_type")
     private WorkerType workerType;
@@ -47,30 +49,30 @@ public class User {
     // TODO 3: Type can be changed later
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role")
-    private UserRole userRole;
+    private UserRole userRole;*/
 
-    @Column(name = "non_expired", nullable = false)
+    @Column(name = "non_expired")
     private boolean accountNonExpired = true;
 
-    @Column(name = "non_locked", nullable = false)
+    @Column(name = "non_locked")
     private boolean accountNonLocked = true;
 
-    @Column(name = "credentials_non_expired", nullable = false)
+    @Column(name = "credentials_non_expired")
     private boolean credentialsNonExpired = true;
 
-    @Column(name = "firstname", length = 100, nullable = false)
+    @Column(name = "firstname", length = 100)
     private String firstName;
 
-    @Column(name = "lastname", length = 100, nullable = false)
+    @Column(name = "lastname", length = 100)
     private String lastName;
 
-    @Column(name = "birthdate", length = 100, nullable = false)
+    @Column(name = "birthdate", length = 100)
     private Date birthDate;
 
-    @Column(name = "country", length = 100, nullable = false)
+    @Column(name = "country", length = 100)
     private String county;
 
-    @Column(name = "city", length = 100, nullable = false)
+    @Column(name = "city", length = 100)
     private String city;
 
     @Column(name = "address", length = 100)
@@ -82,6 +84,7 @@ public class User {
     @Column(name = "zip", length = 100)
     private String zip;
 
+    @JsonIgnore
     @ManyToMany
     private List<Project> projects;
 }
