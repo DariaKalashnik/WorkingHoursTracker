@@ -28,8 +28,8 @@ public class Project {
     @Column(name = "deadline")
     private Date deadline;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "projects", fetch = FetchType.EAGER)
-//    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
     public void addUser(User user) {

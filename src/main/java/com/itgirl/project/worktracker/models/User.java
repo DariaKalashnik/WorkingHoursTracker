@@ -87,7 +87,6 @@ public class User {
 
     // https://www.baeldung.com/hibernate-many-to-many
 
-    @JsonIgnore
     @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     @JoinTable(
             name = "User_Project",

@@ -19,7 +19,7 @@ public class ProjectController {
     @GetMapping("/projects")
     public ResponseEntity<List<Project>> getProjects() {
 
-        List<Project> projects = projectService.getProjects();
+        List<Project> projects = projectService.getAll();
 
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
@@ -27,7 +27,7 @@ public class ProjectController {
     @GetMapping("/projects/{id}")
     public ResponseEntity<Project> getProject(@PathVariable long id) {
 
-        Project project = projectService.getProject(id);
+        Project project = projectService.getById(id);
 
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
@@ -35,7 +35,7 @@ public class ProjectController {
     @PostMapping("/projects")
     public ResponseEntity<Project> addProject(@RequestBody Project project) {
 
-        projectService.saveProject(project);
+        projectService.save(project);
 
         return new ResponseEntity<>(project, HttpStatus.CREATED);
     }
@@ -43,14 +43,14 @@ public class ProjectController {
     @PutMapping("/projects/{id}")
     public ResponseEntity<Project> updateTask(@PathVariable long id, @RequestBody Project project) {
 
-        Project isExists = projectService.getProject(id);
+        Project isExists = projectService.getById(id);
 
         if (isExists == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else if (project == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        projectService.saveProject(project);
+        projectService.save(project);
 
         return new ResponseEntity<>(project, HttpStatus.OK);
 
@@ -59,7 +59,7 @@ public class ProjectController {
     @DeleteMapping("/projects")
     public ResponseEntity<Project> removeProject(@RequestBody Project project) {
 
-        projectService.removeProject(project);
+        projectService.remove(project);
 
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
@@ -67,7 +67,7 @@ public class ProjectController {
     @DeleteMapping("/projects/{id}")
     public ResponseEntity<Project> removeProjectById(@RequestBody long id) {
 
-        projectService.removeProjectById(id);
+        projectService.removeById(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

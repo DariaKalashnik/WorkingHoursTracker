@@ -20,7 +20,7 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
 
-        List<User> users = userService.getUsers();
+        List<User> users = userService.getAll();
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -28,7 +28,7 @@ public class UserController {
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUser(@PathVariable long id) {
 
-        User user = userService.getUser(id);
+        User user = userService.getById(id);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -36,7 +36,7 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<User> addUser(@RequestBody User user) {
 
-        userService.saveUser(user);
+        userService.save(user);
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -44,14 +44,14 @@ public class UserController {
     @PutMapping("/users/{id}")
     public ResponseEntity<User> updateUser(@PathVariable long id, @RequestBody User user) {
 
-        User isExists = userService.getUser(id);
+        User isExists = userService.getById(id);
 
         if (isExists == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         else if (user == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        userService.saveUser(user);
+        userService.save(user);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -59,7 +59,7 @@ public class UserController {
     @DeleteMapping("/users/{id}")
     public ResponseEntity<User> removeUser(@PathVariable long id) {
 
-        userService.removeUserById(id);
+        userService.removeById(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
